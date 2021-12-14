@@ -6,8 +6,8 @@ COPY *.py requirements.txt /app/
 
 # Install the function's dependencies using file requirements.txt
 # from your project folder.
-RUN  pip3 install -r requirements.txt --target "/app/"
-RUN pytest -v .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
-CMD [ "python3","calculator.py" ]
+RUN ["pytest", "-v", "--junitxml=reports/result.xml"]
+
+CMD tail -f /dev/null
